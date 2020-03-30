@@ -1,4 +1,5 @@
 import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { StatusConfig } from '../../config/config.status'
 import { User } from '../user/user.entity';
 
 @Entity('roles')
@@ -17,7 +18,7 @@ export class Role extends BaseEntity {
     @JoinColumn()
     user: User[];
 
-    @Column({ type: 'varchar', default: 'Activo', length: 8 })
+    @Column({ type: 'varchar', default: StatusConfig.ACTIVO, length: 8 })
     status: string;
 
     @CreateDateColumn({ type: 'timestamp', name: 'create_at' })

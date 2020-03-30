@@ -1,4 +1,5 @@
 import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, UpdateDateColumn, CreateDateColumn } from 'typeorm';
+import { StatusConfig } from '../../config/config.status'
 
 @Entity('user_details')
 export class UserDetails extends BaseEntity {
@@ -12,7 +13,7 @@ export class UserDetails extends BaseEntity {
   @Column({ type: 'varchar', nullable: true })
   lastname: string;
 
-  @Column({ type: 'varchar', default: 'Activo', length: 8 })
+  @Column({ type: 'varchar', default: StatusConfig.ACTIVO, length: 8 })
   status: string;
 
   @CreateDateColumn({ type: 'timestamp', name: 'create_at', nullable: true })
