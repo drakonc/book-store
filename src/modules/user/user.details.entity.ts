@@ -1,5 +1,5 @@
 import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, UpdateDateColumn, CreateDateColumn } from 'typeorm';
-import { StatusConfig } from '../../shared/config.status'
+import { StatusConfig } from '../../config/config.status'
 
 @Entity('user_details')
 export class UserDetails extends BaseEntity {

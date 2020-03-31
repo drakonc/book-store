@@ -1,5 +1,5 @@
 import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
-import { StatusConfig } from '../../shared/config.status'
+import { StatusConfig } from '../../config/config.status'
 import { User } from '../user/user.entity';
 
 @Entity('roles')

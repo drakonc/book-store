@@ -1,5 +1,5 @@
 import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinTable, ManyToMany, JoinColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
-import { StatusConfig } from '../../shared/config.status'
+import { StatusConfig } from '../../config/config.status'
 import { UserDetails } from './user.details.entity';
 import { Role } from '../role/role.entity';
 
