@@ -7,19 +7,20 @@ import { User } from './user.entity';
 import { UserDetails } from './user.details.entity';
 import { getConnection } from 'typeorm';
 import { Role } from '../role/role.entity';
+import { RoleRepository } from '../role/role.repository';
 
 @Injectable()
 export class UserService {
 
     constructor(
-        @InjectRepository(UserRepository)
-        private readonly _userRepository: UserRepository
+        @InjectRepository(UserRepository) private readonly _userRepository: UserRepository,
+        @InjectRepository(RoleRepository) private readonly _roleRepository: RoleRepository
     ) { }
 
     async get(id: number): Promise<User> {
         if (!id) throw new BadRequestException('id No Enviado');
         const user: User = await this._userRepository.findOne(id, { where: { status: StatusConfig.ACTIVO } });
-        if (!user) throw new NotFoundException();
+        if (!user) throw new NotFoundException('Usuario No Existe');
         return user;
     }
 
@@ -45,8 +46,21 @@ export class UserService {
 
     async delete(id: number): Promise<void> {
         const userExist: User = await this._userRepository.findOne(id, { where: { status: StatusConfig.ACTIVO } });
-        if (!userExist) throw new BadRequestException('id No Enviado');
+        if (!userExist) throw new NotFoundException('id No Enviado');
         await this._userRepository.update(id, { status: StatusConfig.INACTIVO });
+    }
+
+    async setRoleToUser(userId: number, roleId: number) {
+        const userExist: User = await this._userRepository.findOne(userId, { where: { status: StatusConfig.ACTIVO } });
+        if (!userExist) throw new NotFoundException('Usuario No Existe');
+
+        const roleExist: Role = await this._roleRepository.findOne(roleId, { where: { status: StatusConfig.ACTIVO } });
+        if (!roleExist) throw new NotFoundException('Role No Existe');
+
+        userExist.roles.push(roleExist);
+        await this._userRepository.save(userExist);
+
+        return true;
     }
 
 }
