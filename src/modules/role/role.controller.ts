@@ -28,7 +28,7 @@ export class RoleController {
     }
 
     @Delete(':roleId')
-    async deleteRole(@Param('roleId', ParseIntPipe) roleId: number): Promise<Boolean> {
+    async deleteRole(@Param('roleId', ParseIntPipe) roleId: number): Promise<boolean> {
         await this._roleService.delete(roleId);
         return true;
     }
